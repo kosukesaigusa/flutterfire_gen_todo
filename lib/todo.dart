@@ -11,8 +11,9 @@ TodoQuery todoQuery(TodoQueryRef _) => TodoQuery();
 @riverpod
 class TodoList extends _$TodoList {
   @override
-  Future<List<ReadTodo>> build() =>
-      ref.watch(todoQueryProvider).fetchDocuments();
+  Future<List<ReadTodo>> build() => ref.watch(todoQueryProvider).fetchDocuments(
+        queryBuilder: (query) => query.orderBy('createdAt', descending: true),
+      );
 
   Future<DocumentReference<CreateTodo>> addTodo(String title) =>
       ref.read(todoQueryProvider).add(createTodo: CreateTodo(title: title));
