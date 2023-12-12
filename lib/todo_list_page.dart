@@ -8,53 +8,57 @@ class TodoListPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final todoList = ref.watch(todoListProvider);
     return Scaffold(
       appBar: AppBar(title: const Text('Todo List')),
-      body: ref.watch(todoListProvider).when(
-            data: (todos) => RefreshIndicator(
-              onRefresh: () => ref.refresh(todoListProvider.future),
-              child: ListView.builder(
-                itemCount: todos.length,
-                itemBuilder: (context, index) {
-                  final todo = todos[index];
-                  return ListTile(
-                    title: Text(todo.title),
-                    subtitle: Text(todo.todoId),
-                    leading: Checkbox(
-                      value: todo.isCompleted,
-                      onChanged: (value) async {
-                        if (value == null) {
-                          return;
-                        }
-                        await ref
-                            .read(todoListProvider.notifier)
-                            .updateCompletionStatus(
-                              todoId: todo.todoId,
-                              isCompleted: value,
-                            );
-                        ref.invalidate(todoListProvider);
-                      },
-                    ),
-                    trailing: IconButton(
-                      onPressed: () async {
-                        await ref
-                            .read(todoListProvider.notifier)
-                            .delete(todo.todoId);
-                        ref.invalidate(todoListProvider);
-                      },
-                      icon: const Icon(Icons.delete),
-                    ),
-                  );
-                },
-              ),
-            ),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (err, stack) => Center(child: Text(err.toString())),
+      body: todoList.when(
+        data: (todos) => RefreshIndicator(
+          onRefresh: () => ref.refresh(todoListProvider.future),
+          child: ListView.builder(
+            itemCount: todos.length,
+            itemBuilder: (context, index) {
+              final todo = todos[index];
+              return ListTile(
+                title: Text(todo.title),
+                subtitle: Text(todo.todoId),
+                leading: Checkbox(
+                  value: todo.isCompleted,
+                  onChanged: (value) async {
+                    if (value == null) {
+                      return;
+                    }
+                    await ref
+                        .read(todoListProvider.notifier)
+                        .updateCompletionStatus(
+                          todoId: todo.todoId,
+                          isCompleted: value,
+                        );
+                    ref.invalidate(todoListProvider);
+                  },
+                ),
+                trailing: IconButton(
+                  onPressed: () async {
+                    await ref
+                        .read(todoListProvider.notifier)
+                        .delete(todo.todoId);
+                    ref.invalidate(todoListProvider);
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
+              );
+            },
           ),
+        ),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (err, stack) => Center(child: Text(err.toString())),
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ref
-          ..read(todoListProvider.notifier).addTodo('Todo ${DateTime.now()}')
-          ..invalidate(todoListProvider),
+        onPressed: () async {
+          await ref
+              .read(todoListProvider.notifier)
+              .addTodo('Todo ${DateTime.now()}');
+          ref.invalidate(todoListProvider);
+        },
         child: const Icon(Icons.add),
       ),
     );
