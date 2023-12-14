@@ -19,6 +19,7 @@ class TodoListPage extends ConsumerWidget {
             itemBuilder: (context, index) {
               final todo = todos[index];
               return ListTile(
+                key: ValueKey(todo.todoId),
                 title: Text(todo.title),
                 subtitle: Text(todo.todoId),
                 leading: Checkbox(
