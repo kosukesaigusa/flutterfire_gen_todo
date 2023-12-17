@@ -324,26 +324,26 @@ packages:
     dependency: "direct dev"
     description:
       name: flutterfire_gen
-      sha256: "843c9a70c4fcc2e7e40b33111c4eb4b4c1941e5d0b512db888888e5508042999"
+      sha256: "8efc22a6134a81a0ff52535f3ff2dea0dfe86b90f754d4e24ffb47b69d1fa869"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0-dev.5"
+    version: "0.3.0-dev.1"
   flutterfire_gen_annotation:
     dependency: "direct main"
     description:
       name: flutterfire_gen_annotation
-      sha256: "22c357f92be3ecadb3aec2d3daa6e981ff89ec01af7506dfbcbf1220c3404dfa"
+      sha256: "67e52677fe168a056790cb30071062fbd20129eb957cfd25e8a865f978233d09"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0-dev.1"
+    version: "0.3.0-dev.1"
   flutterfire_gen_utils:
     dependency: "direct main"
     description:
       name: flutterfire_gen_utils
-      sha256: f7aca68b10f5c8ee8e438dd52c6dfeb87c1513ca251388131d3c199ac20c3ebb
+      sha256: "6b29c7d76d690367018f5b48866f9ea1577bbb2f06ee831a2752a899cdfb02be"
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.0-dev.1"
+    version: "0.3.0-dev.1"
   freezed_annotation:
     dependency: transitive
     description:
